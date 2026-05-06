@@ -1,0 +1,4 @@
+ttkbootstrap
+requests
+numpy
+matplotlib
