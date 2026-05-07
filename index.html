@@ -6,14 +6,7 @@
     <title>Aerogel-CSP Suite — вода из воздуха и охлаждение ЦОД</title>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-	<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-	<link rel="shortcut icon" href="/favicon.ico" />
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-	<link rel="manifest" href="/site.webmanifest" />
-    <script type="importmap">
-        { "imports": { "three": "https://unpkg.com/three@0.126.0/build/three.module.js" } }
-    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body {
@@ -24,7 +17,6 @@
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* Hero */
         .hero {
             min-height: 100vh;
             background: radial-gradient(circle at 20% 50%, #0f1a2f, #020508);
@@ -32,9 +24,14 @@
             text-align: center; position: relative; overflow: hidden;
         }
         .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2317253a" fill-opacity="0.4" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,213.3C672,224,768,224,864,197.3C960,171,1056,117,1152,101.3C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
-            opacity: 0.2;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15, 26, 47, 0.4), rgba(2, 5, 8, 0.2));
+            opacity: 0.3;
         }
         .hero-content { position: relative; z-index: 1; }
         .hero h1 { font-size: 3rem; font-weight: 700; background: linear-gradient(135deg, #64b5f6, #1de9b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -48,12 +45,10 @@
         .btn-outline { border: 2px solid #64b5f6; color: #64b5f6; background: transparent; }
         .btn-outline:hover { background: rgba(100,181,246,0.1); }
 
-        /* Sections */
         .section { padding: 80px 20px; }
         .section h2 { font-size: 2.2rem; margin-bottom: 30px; color: #e0f7fa; position: relative; display: inline-block; }
         .section h2::after { content: ''; position: absolute; width: 60px; height: 3px; background: #1de9b6; bottom: -10px; left: 0; }
 
-        /* Features grid */
         .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .feature-card {
             background: linear-gradient(145deg, #112240, #0a192f);
@@ -65,7 +60,6 @@
         .feature-card i { font-size: 2rem; color: #1de9b6; margin-bottom: 15px; }
         .feature-card h3 { margin-bottom: 10px; color: #fff; }
 
-        /* Modal */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.7); justify-content: center; align-items: center;
@@ -77,17 +71,14 @@
         .close-modal { position: absolute; top: 15px; right: 20px; color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer; }
         .close-modal:hover { color: #fff; }
 
-        /* 3D viewer */
         #three-container { width: 100%; height: 400px; background: #0a192f; border-radius: 15px; overflow: hidden; }
 
-        /* Screenshot placeholder */
         .screen-placeholder {
             width: 100%; max-width: 720px; height: 400px; background: #112240; border-radius: 10px;
             display: flex; align-items: center; justify-content: center; margin: 20px auto;
             border: 1px dashed #64b5f6; color: #64b5f6; font-size: 1.2rem;
         }
 
-        /* Timeline */
         .timeline { display: flex; flex-wrap: wrap; gap: 20px; }
         .timeline-card {
             flex: 1 1 250px; background: #0a192f; border-radius: 10px; padding: 20px;
@@ -99,12 +90,11 @@
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.2rem; }
-        }	
+        }
     </style>
 </head>
 <body>
 
-<!-- Hero -->
 <div class="hero">
     <div class="hero-content">
         <h1>Aerogel-CSP Suite</h1>
@@ -114,56 +104,25 @@
     </div>
 </div>
 
-<!-- Features -->
 <div class="section container">
     <h2>Возможности</h2>
     <div class="features">
-        <div class="feature-card" onclick="openModal('modal1')">
-            <i class="fas fa-cloud-sun-rain"></i>
-            <h3>Прогноз воды</h3>
-            <p>Годовой и недельный прогноз сбора воды на основе данных NASA и Open-Meteo.</p>
-        </div>
-        <div class="feature-card" onclick="openModal('modal2')">
-            <i class="fas fa-server"></i>
-            <h3>Экономия для ЦОД</h3>
-            <p>Оценка экономии воды при замене традиционного охлаждения на Aerogel-CSP.</p>
-        </div>
-        <div class="feature-card" onclick="openModal('modal3')">
-            <i class="fas fa-microchip"></i>
-            <h3>Тепловой расчёт</h3>
-            <p>Моделирование охлаждения чипа хладагентом Novec 7000.</p>
-        </div>
-        <div class="feature-card" onclick="openModal('modal4')">
-            <i class="fas fa-chart-bar"></i>
-            <h3>Водный след</h3>
-            <p>Калькулятор сокращения водопотребления для ЦОД.</p>
-        </div>
-        <div class="feature-card" onclick="openModal('modal5')">
-            <i class="fas fa-balance-scale"></i>
-            <h3>Сравнение городов</h3>
-            <p>Сопоставление производительности системы в разных климатах.</p>
-        </div>
-        <div class="feature-card" onclick="openModal('modal6')">
-            <i class="fas fa-file-pdf"></i>
-            <h3>Отчёты PDF</h3>
-            <p>Экспорт результатов с графиками и таблицами.</p>
-        </div>
+        <div class="feature-card" onclick="openModal('modal1')"><i class="fas fa-cloud-sun-rain"></i><h3>Прогноз воды</h3><p>Годовой и недельный прогноз сбора воды на основе данных NASA и Open-Meteo.</p></div>
+        <div class="feature-card" onclick="openModal('modal2')"><i class="fas fa-server"></i><h3>Экономия для ЦОД</h3><p>Оценка экономии воды при замене традиционного охлаждения на Aerogel-CSP.</p></div>
+        <div class="feature-card" onclick="openModal('modal3')"><i class="fas fa-microchip"></i><h3>Тепловой расчёт</h3><p>Моделирование охлаждения чипа хладагентом Novec 7000.</p></div>
+        <div class="feature-card" onclick="openModal('modal4')"><i class="fas fa-chart-bar"></i><h3>Водный след</h3><p>Калькулятор сокращения водопотребления для ЦОД.</p></div>
+        <div class="feature-card" onclick="openModal('modal5')"><i class="fas fa-balance-scale"></i><h3>Сравнение городов</h3><p>Сопоставление производительности системы в разных климатах.</p></div>
+        <div class="feature-card" onclick="openModal('modal6')"><i class="fas fa-file-pdf"></i><h3>Отчёты PDF</h3><p>Экспорт результатов с графиками и таблицами.</p></div>
     </div>
 </div>
 
-<!-- Screenshots -->
 <div class="section container">
     <h2>Интерфейс</h2>
-    <div style="margin:20px auto; max-width:720px;">
-        <img src="screenshots/water_forecast.png" alt="Прогноз воды" style="max-width:100%; border-radius:10px; box-shadow: 0 0 30px rgba(0,180,216,0.3);" onerror="this.style.display='none'">
-    </div>
-    <div style="margin:20px auto; max-width:720px;">
-        <img src="screenshots/dc_savings.png" alt="Экономия ЦОД" style="max-width:100%; border-radius:10px; box-shadow: 0 0 30px rgba(0,180,216,0.3);" onerror="this.style.display='none'">
-    </div>
+    <div style="margin:20px auto; max-width:720px;"><img src="screenshots/water_forecast.png" alt="Прогноз воды" style="max-width:100%; border-radius:10px; box-shadow: 0 0 30px rgba(0,180,216,0.3);" onerror="this.style.display='none'"></div>
+    <div style="margin:20px auto; max-width:720px;"><img src="screenshots/dc_savings.png" alt="Экономия ЦОД" style="max-width:100%; border-radius:10px; box-shadow: 0 0 30px rgba(0,180,216,0.3);" onerror="this.style.display='none'"></div>
     <p style="text-align:center; color:#aaa; font-size:0.9rem;">Если скриншоты не отображаются, убедитесь, что они загружены в папку screenshots.</p>
 </div>
 
-<!-- 3D-модель на Three.js -->
 <div class="section container">
     <h2>3D-модель установки</h2>
     <p>Вращайте — концентратор, адсорбер, конденсатор и панель.</p>
@@ -171,7 +130,6 @@
     <p><small>Упрощённая модель Aerogel-CSP</small></p>
 </div>
 
-<!-- Дорожная карта -->
 <div class="section container">
     <h2>Что дальше?</h2>
     <div class="timeline">
@@ -181,7 +139,6 @@
     </div>
 </div>
 
-<!-- Форум -->
 <div class="section container" style="text-align:center;">
     <h2>Присоединяйтесь к обсуждению</h2>
     <p>Задавайте вопросы, предлагайте идеи на GitHub Discussions.</p>
@@ -192,47 +149,20 @@
     <p>© 2026 Aerogel-CSP | <a href="https://github.com/ReyoH/Aerogel-CSP-Suite">GitHub</a> | Лицензия MIT</p>
 </footer>
 
-<!-- Модальные окна (те же) -->
-<div id="modal1" class="modal"><div class="modal-content">
-    <span class="close-modal" onclick="closeModal('modal1')">&times;</span>
-    <h3>Прогноз воды</h3>
-    <p>Использует архив NASA POWER для расчёта среднесуточного выхода воды за любой период, а также 7-дневный прогноз от Open-Meteo.</p>
-</div></div>
-<div id="modal2" class="modal"><div class="modal-content">
-    <span class="close-modal" onclick="closeModal('modal2')">&times;</span>
-    <h3>Экономия для ЦОД</h3>
-    <p>Сравнивает традиционное водяное охлаждение с замкнутой системой Aerogel-CSP. Показывает годовую экономию в рублях и кубометрах.</p>
-</div></div>
-<div id="modal3" class="modal"><div class="modal-content">
-    <span class="close-modal" onclick="closeModal('modal3')">&times;</span>
-    <h3>Тепловой расчёт</h3>
-    <p>Моделирует микро-канальный испаритель для хладагента Novec 7000. Вычисляет Re, Nu, h и итоговую температуру чипа.</p>
-</div></div>
-<div id="modal4" class="modal"><div class="modal-content">
-    <span class="close-modal" onclick="closeModal('modal4')">&times;</span>
-    <h3>Водный след</h3>
-    <p>Оценивает полное потребление воды дата-центром и показывает, насколько Aerogel-CSP может его сократить.</p>
-</div></div>
-<div id="modal5" class="modal"><div class="modal-content">
-    <span class="close-modal" onclick="closeModal('modal5')">&times;</span>
-    <h3>Сравнение городов</h3>
-    <p>Строит на одном графике кривые суточной производительности для двух разных локаций.</p>
-</div></div>
-<div id="modal6" class="modal"><div class="modal-content">
-    <span class="close-modal" onclick="closeModal('modal6')">&times;</span>
-    <h3>Отчёты PDF</h3>
-    <p>Формирует полноценный документ с графиком, сводной таблицей и реквизитами.</p>
-</div></div>
+<div id="modal1" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('modal1')">&times;</span><h3>Прогноз воды</h3><p>Использует архив NASA POWER для расчёта среднесуточного выхода воды за любой период, а также 7-дневный прогноз от Open-Meteo.</p></div></div>
+<div id="modal2" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('modal2')">&times;</span><h3>Экономия для ЦОД</h3><p>Сравнивает традиционное водяное охлаждение с замкнутой системой Aerogel-CSP. Показывает годовую экономию в рублях и кубометрах.</p></div></div>
+<div id="modal3" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('modal3')">&times;</span><h3>Тепловой расчёт</h3><p>Моделирует микро-канальный испаритель для хладагента Novec 7000. Вычисляет Re, Nu, h и итоговую температуру чипа.</p></div></div>
+<div id="modal4" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('modal4')">&times;</span><h3>Водный след</h3><p>Оценивает полное потребление воды дата-центром и показывает, насколько Aerogel-CSP может его сократить.</p></div></div>
+<div id="modal5" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('modal5')">&times;</span><h3>Сравнение городов</h3><p>Строит на одном графике кривые суточной производительности для двух разных локаций.</p></div></div>
+<div id="modal6" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('modal6')">&times;</span><h3>Отчёты PDF</h3><p>Формирует полноценный документ с графиком, сводной таблицей и реквизитами.</p></div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.126.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.126.0/examples/js/controls/OrbitControls.js"></script>
 <script>
-    // Модальные окна (без изменений)
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     window.onclick = function(e) { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; }
 
-    // Три-Д сцена
     const container = document.getElementById('three-container');
     if (container) {
         const scene = new THREE.Scene();
@@ -247,18 +177,15 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        // Орбитальный контроль
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.target.set(0, 0.3, 0);
         controls.update();
 
-        // Освещение
         scene.add(new THREE.AmbientLight(0x404060));
         const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
         dirLight.position.set(1, 2, 1);
         scene.add(dirLight);
 
-        // Концентратор (параболоид)
         const dishGeo = new THREE.SphereGeometry(0.5, 32, 16, 0, Math.PI*2, 0, Math.PI/2.5);
         const dishMat = new THREE.MeshStandardMaterial({ color: 0xffaa00, roughness: 0.4, metalness: 0.3 });
         const dish = new THREE.Mesh(dishGeo, dishMat);
@@ -266,14 +193,12 @@
         dish.position.y = -0.15;
         scene.add(dish);
 
-        // Адсорбер (цилиндр)
         const cylGeo = new THREE.CylinderGeometry(0.15, 0.15, 0.7, 16);
         const cylMat = new THREE.MeshStandardMaterial({ color: 0x4fc3f7, roughness: 0.5 });
         const cylinder = new THREE.Mesh(cylGeo, cylMat);
         cylinder.position.set(0, 0.35, 0);
         scene.add(cylinder);
 
-        // Конденсатор (спираль)
         const spiralPoints = [];
         for (let i = 0; i <= 100; i++) {
             const t = i / 100 * Math.PI * 5;
@@ -285,16 +210,12 @@
         spiral.position.y = 0.15;
         scene.add(spiral);
 
-        // Солнечная панель
         const panelGeo = new THREE.PlaneGeometry(0.9, 0.9);
         const panelMat = new THREE.MeshStandardMaterial({ color: 0x1565c0, roughness: 0.8 });
         const panel = new THREE.Mesh(panelGeo, panelMat);
         panel.rotation.x = -Math.PI/2;
         panel.position.y = -0.4;
         scene.add(panel);
-
-        // Подписи (небольшие спрайты — заменим на три точки для простоты)
-        // Можно оставить так, модель видна.
 
         function animate() {
             requestAnimationFrame(animate);
